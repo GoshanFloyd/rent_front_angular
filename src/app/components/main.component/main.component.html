@@ -1,0 +1,280 @@
+<!--BEGIN header (logo and navbar)-->
+<header data-uk-sticky="{top:-300, animation: 'uk-animation-slide-top'}">
+  <div class="uk-container uk-container-center uk-grid uk-grid-match">
+    <div class="uk-width-medium-2-10">
+      <a href="/"><img src="../../../assets/img/logo.png" class="sm-center" alt="Logo">
+      </a>
+    </div>
+    <nav class="uk-nav uk-width-medium-8-10">
+      <ul class="uk-navbar-nav uk-hidden-small">
+        <li class="uk-active"><a>Каталог</a></li>
+        <li class="uk-visible-large"><a  class="uk-padding-remove"></a></li>
+        <li *ngIf="loginState"><a [routerLink]="['/my-stuff']" >Мои вещи</a></li>
+        <li><a >Сообщения (12)</a></li>
+        <li><a >Баланс (145,000тг)</a></li>
+        <li><a >Настройки</a></li>
+        <li><a >Помощь</a></li>
+        <li *ngIf="!loginState" class="uk-visible-large"><a class="uk-padding-remove">|</a></li>
+        <li *ngIf="!loginState"><a href="#login-modal" data-uk-modal="{center:true}">Войти</a></li>
+        <li *ngIf="loginState">
+          <img src="../../../assets/img/avatar_skyrim.jpg" class="avatar">
+        </li>
+      </ul>
+
+      <!--BEGIN sidebar(off-canvas) button (appears on display < 768px)-->
+      <div>
+        <a href="#sidebar-menu" class="uk-navbar-toggle uk-visible-small"
+           data-uk-offcanvas="{target:'#sidebar-menu'}"></a>
+      </div>
+      <!--END sidebar(off-canvas) button (appears on display < 768px)-->
+    </nav>
+
+  </div>
+</header>
+<!--END header (logo and navbar)-->
+<!--BEGIN sidebar-->
+<div id="sidebar-menu" class="uk-offcanvas">
+  <div class="uk-offcanvas-bar">
+    <ul class="uk-nav uk-nav-offcanvas" data-uk-nav>
+      <li class="uk-active"><a href="index.html">Каталог</a></li>
+      <li><a href="my_stuff.html">Мои вещи (3)</a></li>
+      <li><a href="messages.html">Сообщения (12)</a></li>
+      <li><a href="balance.html">Баланс (145,000тг)</a></li>
+      <li><a href="settings.html">Настройки</a></li>
+      <li><a href="help.html">Помощь</a></li>
+      <li><a href="#login-modal" data-uk-modal="{center:true}">Войти</a></li>
+    </ul>
+  </div>
+</div>
+<!--END sidebar-->
+
+<!--BEGIN girl and promotion text-->
+<div class="uk-container uk-container-center uk-grid uk-margin-top promotion">
+  <div class="uk-width-medium-4-10">
+    <img class="promo-girl" src="../../../assets/img/girl.png" alt="Promo girl">
+  </div>
+  <div class="promo-text uk-width-medium-6-10">
+    <h2>Взять вещи в аренду —<br> просто, как раз-два-три</h2>
+    <p>Некоторые вещи стоят довольно дорого, а используются только время от времени —
+      так зачем покупать их, если можно взять в аренду?<br><br>
+
+      Rent24.kz — простой и удобный сервис для аренды вещей с рейтингом, гарантией и многим другим.</p>
+    <a *ngIf="!loginState" href="#sign-up-modal" class="btn" data-uk-modal="{center:true}">Зарегистрироваться</a>
+  </div>
+</div>
+<!--END girl and promotion text-->
+
+<!--BEGIN search form-->
+<div class="search-bar-container">
+  <div class="uk-container uk-container-center">
+    <form class="search-form">
+      <label class="uk-form-label" for="search">Я ищу...</label>
+      <input type="text" id="search" placeholder="Бензиновый снегоуборщик">
+      <input class="btn" type="submit" value="Найти">
+    </form>
+  </div>
+</div>
+<!--END search form-->
+
+<!--
+"filter buttons" и "sorting buttons" связаны со списком товаров (items-list). filter buttons фильтрует список по категориям, а sorting buttons сортирует. Подробнее о принципе их работы на: https://getuikit.com/v2/docs/grid-js.html
+Порядок по умолчанию здесь - по дате последнего добавления(data-date), поэтому из бэкэнда нужно выводить в порядке убывания милисекунд data-date.
+-->
+<!--BEGIN filter buttons-->
+<div class="filter-buttons uk-container uk-container-center">
+  <ul class="uk-subnav uk-subnav-pill items-sort-filter">
+    <li data-uk-filter="" class="uk-active"><a href="">Всё</a></li>
+    <li data-uk-filter="transport"><a href="">Транспорт</a></li>
+    <li data-uk-filter="clothes"><a href="">Одежда</a></li>
+    <li data-uk-filter="hobbies-sports"><a href="">Хобби/Спорт</a></li>
+    <li data-uk-filter="real-estate"><a href="">Недвижимость</a></li>
+    <li data-uk-filter="electronics"><a href="">Электроника</a></li>
+    <li data-uk-filter="children"><a href="">Детское</a></li>
+  </ul>
+</div>
+<!--END filter buttons-->
+<!--BEGIN sorting buttons-->
+<div class="sorting-buttons uk-container uk-container-center">
+  <ul class="uk-subnav items-sort-filter">
+    <li data-uk-sort="date:desc" class="uk-active"><a href="">Сначала последние</a></li>
+    <li data-uk-sort="price"><a href="">По цене <i class="uk-icon-arrow-down"></i></a></li>
+    <li data-uk-sort="price:desc"><a href="">По цене <i class="uk-icon-arrow-up"></i></a></li>
+  </ul>
+</div>
+<!--END sorting buttons-->
+<!--BEGIN items-list-->
+<div class="items-list uk-container uk-container-center">
+  <div *ngIf="products" class="uk-grid-width-small-1-2 uk-grid-width-medium-1-3 uk-grid-width-large-1-4" data-uk-grid="{gutter: 10, controls: '.items-sort-filter'}">
+
+    <!--BEGIN snowboard-->
+    <div *ngFor="let product of products" class="item-wrapper"  [attr.data-price]="product.price" data-uk-filter="hobbies-sports">
+      <div class="item">
+        <div class="photo-and-price">
+          <a href=""><img [src]="product.images.length ? backendHost+product.images[0].path : 'none'" alt="Snowboard"></a>
+          <div class="price">{{product.price}}тг / день</div>
+        </div>
+        <div class="item-name">
+          <a href="single-item.html">{{product.title}}</a>
+        </div>
+        <div class="seller-info">
+          <img class="avatar" src="../../../assets/img/avatar_angry_bird.jpg" alt="Аватар">
+          <div>
+            <span class="seller-name">Сергей</span>
+            <div>
+              <i class="uk-icon-star"></i>
+              <i class="uk-icon-star"></i>
+              <i class="uk-icon-star"></i>
+              <i class="uk-icon-star-half-o"></i>
+              <i class="uk-icon-star-o"></i>
+            </div>
+            <a href="" class="uk-button-link">Отзывы арендаторов</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--END snowboard-->
+
+</div>
+<!--END items-list-->
+
+<!--BEGIN pagination-->
+<ul class="uk-pagination">
+  <li class="uk-disabled"><span><i class="uk-icon-angle-double-left"></i></span></li>
+  <li class="uk-active"><span>1</span></li>
+  <li><a href="#">2</a></li>
+  <li><a href="#">3</a></li>
+  <li><a href="#">4</a></li>
+  <li><a href="#">5</a></li>
+  <li><a href="#">6</a></li>
+  <li><a href="#">7</a></li>
+  <li><a href="#">...</a></li>
+  <li><a href=""><i class="uk-icon-angle-double-right"></i></a></li>
+</ul>
+<!--END pagination-->
+
+<footer>
+  <div class="uk-container uk-container-center">
+    <h2>Меню</h2>
+    <div class="uk-grid">
+      <ul class="uk-width-medium-1-4 uk-width-small-1-2">
+        <li><a href="">О нас</a></li>
+        <li><a href="">Каталог вещей</a></li>
+        <li><a href="">Популярное</a></li>
+        <li><a href="">Рейтинг</a></li>
+        <li><a href="">Контакты</a></li>
+      </ul>
+      <ul class="uk-width-medium-1-4 uk-width-small-1-2">
+        <li><a href="">Как это работает?</a></li>
+        <li><a href="">Ответы на вопросы</a></li>
+        <li><a href="">Претензии по вещи</a></li>
+        <li><a href="">Арбитраж</a></li>
+        <li><a href="">Статистика</a></li>
+        <li><a href="">Обратная связь</a></li>
+      </ul>
+      <ul class="uk-width-medium-1-4 uk-width-small-1-2">
+        <li><a href="">Регистрация на портале</a></li>
+        <li><a href="">Восстановление доступа</a></li>
+        <li><a href="">Свзязаться с поддержкой</a></li>
+        <li><a href="">У меня идея!</a></li>
+        <li><a href="">Сотрудничество</a></li>
+        <li><a href="">Реклама на портале</a></li>
+        <li><a href="">Карта сайта</a></li>
+      </ul>
+      <ul class="uk-width-medium-1-4 uk-width-small-1-2">
+        <li><a href="">Политика использования</a></li>
+        <li><a href="">Пользовательское соглашение</a></li>
+      </ul>
+    </div>
+    <p class="copyright-note">&copy; Rent24.kz 2017 // Все права защищены<p>
+  </div>
+</footer>
+
+<!--BEGIN login modal window-->
+<div id="login-modal" class="uk-modal">
+  <div class="uk-modal-dialog">
+    <a class="uk-modal-close uk-close"></a>
+    <div class="uk-modal-header">
+      <h2>Личный кабинет</h2>
+    </div>
+    <form action="" class="uk-form uk-form-stacked">
+      <div class="uk-form-row">
+        <div class="uk-form-controls">
+          <input type="email" placeholder="Электронная почта" class="uk-width-1-1">
+        </div>
+      </div>
+      <div class="uk-form-row">
+        <div class="uk-form-controls">
+          <input type="password" placeholder="Пароль" class="uk-width-1-1">
+        </div>
+      </div>
+      <div class="uk-form-row flex-row">
+        <input class="btn" type="submit" value="Войти">
+        <div><a href=" ">Забыли пароль?</a></div>
+      </div>
+    </form>
+    <div class="uk-modal-footer">
+      <p>Ещё не зарегистрированы?</p>
+      <div class="flex-row">
+        <button class="btn">Регистрация</button>
+        <div class="uk-text-center"><span>Это быстро и бесплатно</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--BEGIN login modal window-->
+
+<!--BEGIN sign-up modal window-->
+<div id="sign-up-modal" class="uk-modal">
+  <div class="uk-modal-dialog">
+    <a class="uk-modal-close uk-close"></a>
+    <div class="uk-modal-header">
+      <h2>Регистрация</h2>
+    </div>
+    <form [formGroup]="formRegisterUser" (submit)="registerUser($event)" class="uk-form uk-form-stacked">
+      <div class="uk-form-row">
+        <div class="uk-form-controls">
+          <input type="text" placeholder="Ваше имя" class="uk-width-1-1" formControlName="nickname">
+        </div>
+      </div>
+      <div class="uk-form-row">
+        <div class="uk-form-controls">
+          <input type="email" placeholder="Электронная почта" formControlName="username" class="uk-width-1-1">
+        </div>
+      </div>
+      <div class="uk-form-row">
+        <div class="uk-form-controls">
+          <input type="password" placeholder="Пароль" class="uk-width-1-1" formControlName="password">
+        </div>
+      </div>
+      <div class="uk-form-row">
+        <div class="uk-form-controls">
+          <input type="tel" placeholder="Мобильный телефон" class="uk-width-1-1" formControlName="phone">
+        </div>
+      </div>
+      <p class="gray">
+        <small>Пожалуйста, укажите свой номер в формате +77011234567. <br>
+          После нажатия кнопки "Зарегистрироваться" на указанный вами номер будет отправлено SMS-сообщение с кодом
+          подтверждения.
+        </small> <br>
+        <small>На указанный номер было отправлено  SMS-сообщение с кодом подтверждения. Если сообщение не пришло, вы сможете
+          <a href="">отправить SMS ещё раз</a> через 30 секунд
+        </small>
+      </p>
+      <div class="uk-form-row flex-row">
+        <input class="btn" type="submit" value="Зарегистрироваться">
+      </div>
+    </form>
+    <div class="uk-modal-footer">
+      <p>Введите проверочный код из SMS</p>
+      <form action="" class="uk-form uk-form-stacked">
+        <div class="uk-form-row">
+          <div class="uk-form-controls">
+            <input type="text" placeholder="Проверочный код" class="uk-width-1-1">
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+<!--BEGIN sign-up modal indow-->

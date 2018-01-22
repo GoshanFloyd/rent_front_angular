@@ -1,0 +1,578 @@
+@charset "UTF-8";
+/********************************************
+BEGIN переопределение стилей браузера и uikit
+********************************************/
+* {
+  box-sizing: border-box; }
+
+a:hover {
+  text-decoration: none; }
+
+ul {
+  list-style: none; }
+
+.uk-grid-match > * > img {
+  width: auto; }
+
+.uk-navbar-nav > li > a,
+.uk-navbar-nav > li > a:hover,
+.uk-navbar-nav > li.uk-active > a {
+  color: white;
+  height: 50px;
+  line-height: 50px; }
+
+.uk-navbar-nav > li.uk-active > a {
+  background: none;
+  font-weight: bold; }
+
+.uk-navbar-nav > li.uk-open > a,
+.uk-navbar-nav > li:hover > a,
+.uk-navbar-nav > li > a:focus {
+  color: white;
+  background: #06bbff; }
+
+.uk-navbar-nav > li:hover > a.uk-padding-remove {
+  background: #0099d2; }
+
+a.uk-navbar-toggle {
+  position: fixed;
+  border: 1px solid #ccc;
+  top: 10px;
+  left: 10px;
+  z-index: 100;
+  height: 30px;
+  padding: 0 10px;
+  background: white; }
+
+img.avatar {
+  height: 50px;
+  width: 50px; }
+
+/********************************************
+END переопределение стилей браузера и uikit
+********************************************/
+/********************************************
+BEGIN общие стили
+********************************************/
+.main-blue {
+  color: #0099d2; }
+
+.gray {
+  color: #777; }
+
+.background-gray {
+  background: #fafaf8; }
+
+@media screen and (max-width: 768px) {
+  .sm-center {
+    margin: 0 auto;
+    display: block; } }
+
+.btn {
+  cursor: pointer;
+  background: white;
+  border: 2px solid #0099d2;
+  display: inline-block;
+  color: #0099d2;
+  font-size: 16px;
+  padding: 10px 15px;
+  transition: .5s;
+  text-align: center; }
+  .btn:hover {
+    background: #0099d2;
+    color: white; }
+  .btn:active {
+    background: #06bbff; }
+
+.search-bar-container {
+  padding: 20px;
+  border-bottom: 2px #ccc solid; }
+  .search-bar-container .search-form {
+    display: flex;
+    flex-flow: row wrap;
+    font-size: 16px; }
+    @media screen and (max-width: 768px) {
+      .search-bar-container .search-form {
+        flex-flow: column wrap; } }
+    .search-bar-container .search-form label {
+      flex: 0 0 auto;
+      align-self: center; }
+    .search-bar-container .search-form input[type=text] {
+      flex: 1 1 auto;
+      margin: 0 10px;
+      font-size: 16px;
+      padding: 0 10px; }
+      @media screen and (max-width: 768px) {
+        .search-bar-container .search-form input[type=text] {
+          margin: 10px 0;
+          padding: 10px; } }
+    .search-bar-container .search-form input[type=submit] {
+      flex: 0 0 200px; }
+      @media screen and (max-width: 768px) {
+        .search-bar-container .search-form input[type=submit] {
+          flex-basis: auto; } }
+
+.promotion + .search-bar-container {
+  padding: 55px 0 25px;
+  background: #eeeeee;
+  box-shadow: 0px -10px 30px -10px rgba(0, 0, 0, 0.3); }
+
+.seller-info {
+  display: flex;
+  padding: 0;
+  margin: 10px 0;
+  line-height: 1.2; }
+  .seller-info .seller-name {
+    font-weight: bold;
+    color: #666666; }
+  .seller-info img.avatar {
+    margin-right: 10px; }
+
+/********************************************
+END общие стили
+********************************************/
+/********************************************
+BEGIN header
+********************************************/
+header {
+  background: #0099d2; }
+  header .avatar {
+    width: 50px;
+    margin: 0; }
+
+/********************************************
+END header
+********************************************/
+/********************************************
+BEGIN footer
+********************************************/
+footer {
+  background: #333;
+  color: white;
+  padding: 30px 0; }
+  footer h2 {
+    color: white; }
+  footer li {
+    list-style: none; }
+    footer li a {
+      color: white; }
+      footer li a:hover {
+        color: white;
+        text-decoration: underline; }
+  footer .copyright-note {
+    margin: 30px 0 0; }
+
+/********************************************
+END footer
+********************************************/
+/********************************************
+BEGIN modal windows
+********************************************/
+.uk-modal-dialog {
+  width: 500px;
+  padding: 30px;
+  font-size: 16px; }
+  .uk-modal-dialog input:not([type="submit"]) {
+    font-size: 20px;
+    height: auto;
+    padding: 10px; }
+  .uk-modal-dialog .btn {
+    color: #0099d2; }
+    .uk-modal-dialog .btn:hover {
+      color: white; }
+  .uk-modal-dialog .flex-row {
+    display: flex; }
+    .uk-modal-dialog .flex-row > * {
+      flex: 1 1;
+      display: flex;
+      justify-content: center;
+      align-items: center; }
+  .uk-modal-dialog .uk-modal-footer {
+    background: #0099d2;
+    color: white;
+    padding: 20px 30px 30px 30px;
+    margin: 20px -30px -30px -30px; }
+    .uk-modal-dialog .uk-modal-footer ::-webkit-input-placeholder {
+      color: white; }
+    .uk-modal-dialog .uk-modal-footer :-moz-placeholder {
+      color: white; }
+    .uk-modal-dialog .uk-modal-footer ::-moz-placeholder {
+      color: white; }
+    .uk-modal-dialog .uk-modal-footer :-ms-input-placeholder {
+      color: white; }
+    .uk-modal-dialog .uk-modal-footer input:not([type="submit"]) {
+      border-color: white;
+      color: white;
+      background: #0099d2; }
+    .uk-modal-dialog .uk-modal-footer .btn {
+      border-color: white;
+      background: #0099d2;
+      color: white; }
+      .uk-modal-dialog .uk-modal-footer .btn:hover {
+        color: #0099d2;
+        background: white; }
+
+/********************************************
+END modal windows
+********************************************/
+.filter-buttons ul,
+.sorting-buttons ul {
+  margin: 0; }
+
+.items-list {
+  margin-top: 20px;
+  margin-bottom: 20px; }
+
+.item {
+  border: 1px solid #ccc;
+  display: flex;
+  flex-flow: column;
+  line-height: 1.2; }
+  .item .photo-and-price {
+    position: relative; }
+    .item .photo-and-price img {
+      width: 100%; }
+    .item .photo-and-price .price {
+      position: absolute;
+      bottom: 5px;
+      left: -1px;
+      background: #0099d2;
+      color: white;
+      font-size: 1.2em;
+      padding: 5px 10px; }
+      .item .photo-and-price .price::after {
+        content: "";
+        position: absolute;
+        margin-top: -15px;
+        margin-right: -10px;
+        right: 0;
+        top: 50%;
+        width: 0;
+        height: 0;
+        border-top: 15px solid #0099d2;
+        border-right: 10px solid transparent;
+        border-bottom: 15px solid #0099d2; }
+  .item .item-name {
+    font-weight: bold;
+    padding: 10px 10px 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical; }
+    .item .item-name a {
+      color: #333; }
+  .item .seller-info {
+    padding: 5px 10px 10px;
+    margin: 0; }
+
+/********************************************
+BEGIN page index
+********************************************/
+.promotion {
+  position: relative;
+  padding-bottom: 35px; }
+  .promotion .promo-girl {
+    position: absolute;
+    bottom: -50px; }
+    @media screen and (max-width: 1220px) {
+      .promotion .promo-girl {
+        width: 350px;
+        bottom: -39px; } }
+    @media screen and (max-width: 767px) {
+      .promotion .promo-girl {
+        display: none; } }
+  .promotion .promo-text h2 {
+    font-size: 28px; }
+    @media screen and (max-width: 768px) {
+      .promotion .promo-text h2 {
+        font-size: 24px; } }
+  .promotion .promo-text .btn {
+    text-align: center; }
+    @media screen and (max-width: 1220px) {
+      .promotion .promo-text .btn {
+        display: block; } }
+
+/********************************************
+END page index
+********************************************/
+/********************************************
+BEGIN single item page
+********************************************/
+.single-item-info {
+  padding-top: 20px;
+  padding-bottom: 20px; }
+  .single-item-info .important-notes .uk-flex > *:first-child {
+    flex: 0 1 100px; }
+  .single-item-info .important-notes .uk-flex > *:nth-child(2) {
+    flex: 1 1; }
+  .single-item-info .important-notes .uk-flex p {
+    margin: 5px 0; }
+  .single-item-info ul.uk-slideshow li {
+    height: 300px;
+    background: 50% 50%/cover no-repeat; }
+    .single-item-info ul.uk-slideshow li a {
+      display: block;
+      width: 100%;
+      height: 100%; }
+  .single-item-info form span {
+    font-size: 20px; }
+  .single-item-info form select {
+    display: inline-block;
+    margin: 0 15px; }
+  .single-item-info form p i {
+    text-indent: 25px; }
+  .single-item-info form .btn {
+    margin: 0 15px; }
+
+.ui-state-active,
+.ui-widget-content .ui-state-active,
+.ui-widget-header .ui-state-active {
+  background: #F8F7F6;
+  color: black;
+  border: 1px solid #c5c5c5;
+  font-weight: normal; }
+
+.ui-state-highlight,
+.ui-widget-content .ui-state-highlight,
+.ui-widget-header .ui-state-highlight {
+  border: 1px solid #00749f;
+  background: #fff;
+  color: #0099d2; }
+
+/* begin: jQuery UI Datepicker moving pixels fix */
+table.ui-datepicker-calendar {
+  border-collapse: separate; }
+
+.ui-datepicker-calendar td {
+  border: 1px solid transparent; }
+
+/* end: jQuery UI Datepicker moving pixels fix */
+/* begin: jQuery UI Datepicker emphasis on selected dates */
+.ui-datepicker .ui-datepicker-calendar .ui-state-highlight a {
+  background: #0099d2 none;
+  color: white; }
+
+/* end: jQuery UI Datepicker emphasis on selected dates */
+/* begin: jQuery UI Datepicker hide datepicker helper */
+#ui-datepicker-div {
+  display: none; }
+
+/* end: jQuery UI Datepicker hide datepicker helper */
+.ui-corner-all {
+  border-radius: 0; }
+
+/********************************************
+END single item page
+********************************************/
+/********************************************
+BEGIN add item page
+********************************************/
+.add-item {
+  padding-top: 20px;
+  padding-bottom: 20px; }
+  .add-item .uk-width-medium-2-10 {
+    display: flex;
+    align-items: center; }
+  .add-item .uk-grid .uk-grid .uk-width-medium-2-10 {
+    justify-content: center; }
+  .add-item label {
+    margin: 8px 0; }
+  .add-item input, .add-item select, .add-item textarea {
+    width: 100%;
+    font-size: 16px;
+    padding: 8px;
+    background: white;
+    margin: 10px 0;
+    resize: none; }
+
+/********************************************
+END add item page
+********************************************/
+/********************************************
+BEGIN balance
+********************************************/
+.balance-page {
+  padding-top: 30px;
+  padding-bottom: 20px; }
+  .balance-page [class*=uk-width] {
+    padding-top: 10px;
+    padding-bottom: 10px; }
+  .balance-page ul.transactions {
+    padding-left: 0; }
+    .balance-page ul.transactions li {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 5px; }
+      .balance-page ul.transactions li:nth-child(odd) {
+        background: #f3f3f3; }
+      .balance-page ul.transactions li.income {
+        list-style-image: url("../img/arrow-income.png"); }
+      .balance-page ul.transactions li.outcome {
+        list-style-image: url("../img/arrow-outcome.png"); }
+      .balance-page ul.transactions li span {
+        color: #777; }
+  .balance-page form {
+    line-height: 2; }
+    .balance-page form input.sum {
+      max-width: 100px; }
+    .balance-page form .big-text {
+      font-size: 20px; }
+    .balance-page form .btn {
+      padding: 0 20px 0 15px; }
+  .balance-page .text-big {
+    font-size: 35px; }
+
+/********************************************
+END balance
+********************************************/
+/********************************************
+BEGIN my stuff
+********************************************/
+.my-stuff-page {
+  padding-top: 20px; }
+  .my-stuff-page > h2 {
+    background: #20c2ff;
+    color: white;
+    text-align: center;
+    padding-top: 7px;
+    padding-bottom: 7px; }
+  .my-stuff-page a.uk-text-large {
+    left: 120px;
+    top: 110px;
+    text-align: center;
+    transition: 1s all; }
+    @media screen and (min-width: 760px) {
+      .my-stuff-page a.uk-text-large {
+        position: absolute; } }
+    .my-stuff-page a.uk-text-large .plus-sign {
+      width: 100px;
+      height: 100px;
+      margin: auto;
+      background: 0 0/cover url("../img/icon-add.png");
+      transition: 1s all; }
+    .my-stuff-page a.uk-text-large:hover .plus-sign {
+      background-image: url("../img/icon-add-inverse.png");
+      transition: 1s all; }
+  .my-stuff-page a.uk-text-large.bottom-side {
+    position: static;
+    display: block;
+    width: 300px;
+    margin: auto; }
+    .my-stuff-page a.uk-text-large.bottom-side .plus-sign {
+      width: 50px;
+      height: 50px; }
+  .my-stuff-page .banner {
+    background: 0 0/cover url("../img/background_luggage.jpg");
+    padding: 30px 0;
+    position: relative; }
+    .my-stuff-page .banner .text-container {
+      max-width: 400px; }
+      @media screen and (min-width: 760px) {
+        .my-stuff-page .banner .text-container {
+          margin-left: 45%; } }
+  .my-stuff-page .ads {
+    margin-top: 15px;
+    background: #f3f3f3;
+    padding-top: 15px;
+    padding-bottom: 15px; }
+    .my-stuff-page .ads div.img {
+      height: 180px;
+      background: 50% 50%/cover; }
+    .my-stuff-page .ads .btn {
+      padding: 7px 10px;
+      width: 100%;
+      margin-bottom: 10px; }
+
+/********************************************
+END my stuff
+********************************************/
+/********************************************
+BEGIN messages-page
+********************************************/
+.messages-page {
+  padding-top: 20px;
+  padding-bottom: 30px; }
+  .messages-page .avatar {
+    border-radius: 50%; }
+  .messages-page .active {
+    background: #d2f3ff; }
+  .messages-page .messages img {
+    margin: 10px 0; }
+  .messages-page .messages .message {
+    position: relative; }
+    .messages-page .messages .message::before {
+      content: ' ';
+      position: absolute;
+      width: 0;
+      height: 0;
+      left: 0;
+      bottom: -17.5px;
+      border: 10px solid;
+      border-color: #f5f5f5 transparent transparent #f5f5f5; }
+    .messages-page .messages .message.user {
+      background: #d2f3ff; }
+      .messages-page .messages .message.user:before {
+        right: 0;
+        left: auto;
+        border-color: #d2f3ff #d2f3ff transparent transparent; }
+    .messages-page .messages .message.new {
+      border: 1px solid #0099d2; }
+      .messages-page .messages .message.new:after {
+        content: ' ';
+        position: absolute;
+        width: 0;
+        height: 0;
+        left: -1px;
+        bottom: -20px;
+        border: 10px solid;
+        border-color: #0099d2 transparent transparent #0099d2; }
+      .messages-page .messages .message.new:before {
+        z-index: 20; }
+
+/********************************************
+END messages-page
+********************************************/
+/********************************************
+BEGIN settings-page
+********************************************/
+.settings-page {
+  padding-bottom: 30px; }
+  .settings-page [class*=uk-width-] {
+    padding-top: 7px;
+    padding-bottom: 7px;
+    display: flex;
+    flex-flow: column;
+    justify-content: center; }
+  .settings-page input, .settings-page select, .settings-page textarea {
+    max-width: 400px;
+    font-size: 16px;
+    padding: 8px;
+    background: white;
+    margin: 10px 0;
+    resize: none; }
+
+/********************************************
+END settings-page
+********************************************/
+/********************************************
+BEGIN help-page
+********************************************/
+.help-page {
+  padding-top: 30px;
+  padding-bottom: 30px; }
+  .help-page img {
+    max-width: 300px;
+    margin-bottom: 5px; }
+    .help-page img.float-left {
+      float: left;
+      margin-right: 7px; }
+    .help-page img.float-right {
+      float: right;
+      margin-left: 7px; }
+
+/********************************************
+END help-page
+********************************************/
+
+/*# sourceMappingURL=styles.css.map */
