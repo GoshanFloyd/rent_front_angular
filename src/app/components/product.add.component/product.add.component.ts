@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { UserService } from '../../services/user.service';
 import { ProductService } from '../../services/product.service';
+import {Router} from '@angular/router';
 
 declare const $: any;
 declare const UIkit: any;
@@ -14,7 +15,7 @@ declare const UIkit: any;
 
 export class ProductsAddComponent implements OnInit {
 
-  private token: string = localStorage.getItem('auth_token');
+  private token: string = localStorage.getItem('auth_token_rent');
 
   public formAddItem: any = {
     title: '',
@@ -34,7 +35,8 @@ export class ProductsAddComponent implements OnInit {
 
   public files: any;
 
-  constructor(private _productService: ProductService){
+  constructor(private _productService: ProductService,
+              private _router: Router){
 
   }
 
@@ -64,6 +66,8 @@ export class ProductsAddComponent implements OnInit {
     this._productService.addProduct(this.token, this.dataForm).subscribe(
       data => {
         console.log(data.json())
+
+        this._router.navigate(['/'])
       },
       err => console.log(err)
     )

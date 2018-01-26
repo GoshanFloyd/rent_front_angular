@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class UserService {
 
-  private host:string = "http://localhost:8200/api/user/";
+  private host:string = "http://beru.rent/api/user/";
 
   constructor(private http: Http) {
   }
@@ -23,8 +23,23 @@ export class UserService {
     let headers = new Headers();
 
     headers.append('TOKEN', token)
-    console.log(headers);
 
     return this.http.get(this.host, {headers: headers})
+  }
+
+  getUserInfoById(token: string, id: any){
+    let headers = new Headers();
+
+    headers.append('TOKEN', token)
+
+    return this.http.get(this.host+id, {headers: headers})
+  }
+
+  updateUserInfo(token: string, data: any){
+    let headers = new Headers();
+
+    headers.append('TOKEN', token);
+
+    return this.http.put(this.host, data, {headers: headers})
   }
 }

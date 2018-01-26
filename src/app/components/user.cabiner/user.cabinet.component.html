@@ -1,0 +1,138 @@
+<app-header></app-header>
+<div class="background-gray">
+  <p class="uk-container uk-container-center">Для пользования системой необходимо заполнить некоторые поля</p>
+</div>
+
+<!--BEGIN settings-page-->
+<div class="settings-page uk-container uk-container-center">
+  <div class="uk-grid">
+    <div class="uk-width-medium-2-10">
+    </div>
+    <div class="uk-width-medium-8-10">
+      <h2 class="uk-margin-bottom-remove">Базовые настройки</h2>
+    </div>
+    <div class="uk-width-medium-2-10">
+      <p class="gray">Имя(видно всем)</p>
+    </div>
+    <div class="uk-width-medium-8-10">
+      <p *ngIf="user">{{user.nickname}}</p>
+    </div>
+    <div class="uk-width-medium-2-10">
+      <p class="gray">Email/логин</p>
+    </div>
+    <div class="uk-width-medium-8-10">
+      <p *ngIf="user">{{user.username}}</p>
+    </div>
+    <div class="uk-width-medium-2-10">
+      <p class="gray">Номер моб.телефона</p>
+    </div>
+    <div class="uk-width-medium-8-10">
+      <p *ngIf="user">{{user.phone}}</p>
+    </div>
+    <div class="uk-width-medium-2-10">
+      <p class="gray">Аватар</p>
+    </div>
+    <div class="uk-width-medium-8-10">
+      <img *ngIf="user" [attr.src]="user.avatar_image ? backendHost+user.avatar_image : '../../../assets/img/avatar_skyrim.jpg'" class="avatar uk-margin-right">
+      <a href="/#" *ngIf="user && user.avater_image">Удалить</a>
+      <input (change)="addFiles($event)" type="file">
+    </div>
+  </div>
+  <hr>
+  <div class="uk-grid">
+    <div class="uk-width-medium-2-10">
+    </div>
+    <div class="uk-width-medium-8-10">
+      <h2 class="uk-margin-bottom-remove">Юридическая информация</h2>
+      <p class="gray">Эти данне нужны нам для составления договора, их увидите только вы и ваш пртнёр по сделке аренды.</p>
+    </div>
+    <div class="uk-width-medium-2-10">
+      <p class="gray">Отчество</p>
+    </div>
+    <div class="uk-width-medium-8-10">
+      <input *ngIf="user" [(ngModel)]="user.pact_lastname" name='pact_lastname' type="text">
+    </div>
+    <div class="uk-width-medium-2-10">
+      <p class="gray">Фамилия</p>
+    </div>
+    <div class="uk-width-medium-8-10">
+      <input *ngIf="user" [(ngModel)]="user.pact_surname" name="pact_surname" type="text">
+    </div>
+    <div class="uk-width-medium-2-10">
+      <p class="gray">Гражданство</p>
+    </div>
+    <div class="uk-width-medium-8-10">
+      <input *ngIf="user" [(ngModel)]="user.pact_country" name="pact_country" type="text">
+    </div>
+    <div class="uk-width-medium-2-10">
+      <p class="gray">ИИН</p>
+    </div>
+    <div class="uk-width-medium-8-10">
+      <input *ngIf="user" [(ngModel)]="user.pact_iin" name="pact_iin" type="number">
+    </div>
+  </div>
+  <hr>
+  <div class="uk-grid">
+    <div class="uk-width-medium-2-10">
+    </div>
+    <div class="uk-width-medium-8-10">
+      <h2 class="uk-margin-bottom-remove">Настройки безопасности</h2>
+    </div>
+    <div class="uk-width-medium-2-10">
+      <p class="gray">Пароль</p>
+    </div>
+    <div class="uk-width-medium-8-10">
+      <input *ngIf="user" [(ngModel)]="user.password" name="password" type="password">
+    </div>
+    <div class="uk-width-medium-2-10">
+      <p class="gray">Удаление аккаунта</p>
+    </div>
+    <div class="uk-width-medium-8-10">
+      <a href="/#">Да, я хочу удалить свой аккаунт</a>
+    </div>
+    <div class="uk-width-medium-2-10">
+    </div>
+    <div class="uk-width-medium-2-10">
+      <a (click)="saveUser($event)" class="btn">Сохранить</a>
+    </div>
+  </div>
+  <p class="gray">Rent24.kz является онлайн-площадкой для организации предоставления арендных услуг и несёт ограниченную ответственность за нодобросовестные действия арендодателей и арендаторов. Будьте бдительны при выборе арендодателя!</p>
+</div>
+<!--END settings-page -->
+
+<footer>
+  <div class="uk-container uk-container-center">
+    <h2>Меню</h2>
+    <div class="uk-grid">
+      <ul class="uk-width-medium-1-4 uk-width-small-1-2">
+        <li><a href="">О нас</a></li>
+        <li><a href="">Каталог вещей</a></li>
+        <li><a href="">Популярное</a></li>
+        <li><a href="">Рейтинг</a></li>
+        <li><a href="">Контакты</a></li>
+      </ul>
+      <ul class="uk-width-medium-1-4 uk-width-small-1-2">
+        <li><a href="">Как это работает?</a></li>
+        <li><a href="">Ответы на вопросы</a></li>
+        <li><a href="">Претензии по вещи</a></li>
+        <li><a href="">Арбитраж</a></li>
+        <li><a href="">Статистика</a></li>
+        <li><a href="">Обратная связь</a></li>
+      </ul>
+      <ul class="uk-width-medium-1-4 uk-width-small-1-2">
+        <li><a href="">Регистрация на портале</a></li>
+        <li><a href="">Восстановление доступа</a></li>
+        <li><a href="">Свзязаться с поддержкой</a></li>
+        <li><a href="">У меня идея!</a></li>
+        <li><a href="">Сотрудничество</a></li>
+        <li><a href="">Реклама на портале</a></li>
+        <li><a href="">Карта сайта</a></li>
+      </ul>
+      <ul class="uk-width-medium-1-4 uk-width-small-1-2">
+        <li><a href="">Политика использования</a></li>
+        <li><a href="">Пользовательское соглашение</a></li>
+      </ul>
+    </div>
+    <p class="copyright-note">&copy; Rent24.kz 2017 // Все права защищены<p>
+  </div>
+</footer>

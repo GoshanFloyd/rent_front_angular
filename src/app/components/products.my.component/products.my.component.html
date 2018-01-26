@@ -1,53 +1,4 @@
-<!--BEGIN header (logo and navbar)-->
-<header data-uk-sticky="{top:-300, animation: 'uk-animation-slide-top'}">
-  <div class="uk-container uk-container-center uk-grid uk-grid-match">
-    <div class="uk-width-medium-2-10">
-      <a href="index.html"><img src="img/logo.png" class="sm-center" alt="Logo">
-      </a>
-    </div>
-    <nav class="uk-nav uk-width-medium-8-10">
-      <ul class="uk-navbar-nav uk-hidden-small">
-        <li><a href="index.html">Каталог</a></li>
-        <li class="uk-visible-large"><a href="#/" class="uk-padding-remove">|</a></li>
-        <li class="uk-active"><a href="my_stuff.html">Мои вещи (3)</a></li>
-        <li><a href="messages.html">Сообщения (12)</a></li>
-        <li><a href="balance.html">Баланс (145,000тг)</a></li>
-        <li><a href="settings.html">Настройки</a></li>
-        <li><a href="help.html">Помощь</a></li>
-        <li class="uk-visible-large"><a href="#/" class="uk-padding-remove">|</a></li>
-        <li><a href="#login-modal" data-uk-modal="{center:true}">Войти</a></li>
-        <li>
-          <img src="img/avatar_skyrim.jpg" class="avatar">
-        </li>
-      </ul>
-
-      <!--BEGIN sidebar(off-canvas) button (appears on display < 768px)-->
-      <div>
-        <a href="#sidebar-menu" class="uk-navbar-toggle uk-visible-small"
-           data-uk-offcanvas="{target:'#sidebar-menu'}"></a>
-      </div>
-      <!--END sidebar(off-canvas) button (appears on display < 768px)-->
-    </nav>
-
-  </div>
-</header>
-<!--END header (logo and navbar)-->
-<!--BEGIN sidebar-->
-<div id="sidebar-menu" class="uk-offcanvas">
-  <div class="uk-offcanvas-bar">
-    <ul class="uk-nav uk-nav-offcanvas" data-uk-nav>
-      <li><a href="index.html">Каталог</a></li>
-      <li class="uk-active"><a href="my_stuff.html">Мои вещи (3)</a></li>
-      <li><a href="messages.html">Сообщения (12)</a></li>
-      <li><a href="balance.html">Баланс (145,000тг)</a></li>
-      <li><a href="settings.html">Настройки</a></li>
-      <li><a href="help.html">Помощь</a></li>
-      <li><a href="#login-modal" data-uk-modal="{center:true}">Войти</a></li>
-    </ul>
-  </div>
-</div>
-<!--END sidebar-->
-
+<app-header></app-header>
 <!--BEGIN my stuff-->
 <div class="my-stuff-page uk-container uk-container-center">
   <div class="banner">
@@ -66,106 +17,92 @@
   </div>
   <div class="uk-grid-divider uk-margin-top-remove"></div>
 
-  <h2>В прокате:</h2>
-  <div class="uk-grid ads">
-    <div class="uk-width-medium-3-10">
-      <div class="img" style="background-image: url('img/item_mercedes_benz.jpg')"></div>
-    </div>
-    <div class="uk-width-medium-7-10">
-      <h2><a href="single-item.html">Mercedes-Benz GLE300 4Matic</a></h2>
-      <div class="uk-grid-divider uk-margin-top-remove"></div>
-      <div class="uk-grid">
-        <div class="uk-width-medium-1-3">
-          <p class="uk-text-large">25 000₸<span class="gray">/день</span></p>
-          <div class="btn">Редактировать</div>
+  <div  *ngIf="products.length > 0">
+    <h2>В прокате:</h2>
+
+    <div *ngFor="let product of products">
+      <div  class="uk-grid ads" *ngIf="product.status">
+        <div class="uk-width-medium-3-10">
+          <div class="img" *ngIf="product.images.length > 0" [ngStyle]="{'background-image': 'url(' + backendHost+product.images[0].path + ')'}"></div>
         </div>
-        <div class="uk-width-medium-1-3 uk-text-center">
-          <p><span class="gray">Арендовали:</span> <span>3</span></p>
-          <p><span class="gray">Заработано:</span> <span>75 000тг</span></p>
-        </div>
-        <div class="uk-width-medium-1-3 uk-text-center">
-          <p><a href="#/">Календарь аренды</a></p>
-          <p><a href="#/">Поделиться в соцсетях</a></p>
-          <p><a href="#/">Снять с публикации</a></p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="uk-grid ads">
-    <div class="uk-width-medium-3-10">
-      <div class="img" style="background-image: url('img/item_tablet.jpg')"></div>
-    </div>
-    <div class="uk-width-medium-7-10">
-      <h2><a href="#/">Планшет на базе Android</a></h2>
-      <div class="uk-grid-divider uk-margin-top-remove"></div>
-      <div class="uk-grid">
-        <div class="uk-width-medium-1-3">
-          <p class="uk-text-large">1 200₸<span class="gray">/день</span></p>
-          <div class="btn">Редактировать</div>
-        </div>
-        <div class="uk-width-medium-1-3 uk-text-center">
-          <p><span class="gray">Арендовали:</span> <span>1</span></p>
-          <p><span class="gray">Заработано:</span> <span>1 200</span></p>
-        </div>
-        <div class="uk-width-medium-1-3 uk-text-center">
-          <p><a href="#/">Календарь аренды</a></p>
-          <p><a href="#/">Поделиться в соцсетях</a></p>
-          <p><a href="#/">Снять с публикации</a></p>
+        <div class="uk-width-medium-7-10">
+          <h2><a href="single-item.html">{{product.title}}</a></h2>
+          <div class="uk-grid-divider uk-margin-top-remove"></div>
+          <div class="uk-grid">
+            <div class="uk-width-medium-1-3">
+              <p class="uk-text-large">{{product.price}}₸<span class="gray">/день</span></p>
+              <div class="btn">Редактировать</div>
+            </div>
+            <div class="uk-width-medium-1-3 uk-text-center">
+              <p><span class="gray">Арендовали:</span> <span>3</span></p>
+              <p><span class="gray">Заработано:</span> <span>75 000тг</span></p>
+            </div>
+            <div class="uk-width-medium-1-3 uk-text-center">
+              <p><a href="#/">Календарь аренды</a></p>
+              <p><a href="#/">Поделиться в соцсетях</a></p>
+              <p><a href="#/">Снять с публикации</a></p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <h2>Сдаётся:</h2>
-  <div class="uk-grid ads">
-    <div class="uk-width-medium-3-10">
-      <div class="img" style="background-image: url('img/item_warm_clothes.jpg')"></div>
-    </div>
-    <div class="uk-width-medium-7-10">
-      <h2><a href="#/">Комплект тёплой зимней одежды</a></h2>
-      <div class="uk-grid-divider uk-margin-top-remove"></div>
-      <div class="uk-grid">
-        <div class="uk-width-medium-1-3">
-          <p class="uk-text-large">1 000₸<span class="gray">/день</span></p>
-          <div class="btn">Редактировать</div>
+
+    <h2>Сдаётся:</h2>
+    <div *ngFor="let product of products">
+      <div class="uk-grid ads" *ngIf="!product.status">
+        <div class="uk-width-medium-3-10">
+          <div class="img" *ngIf="product.images.length > 0" [ngStyle]="{'background-image': 'url(' + backendHost+product.images[0].path + ')'}"></div>
         </div>
-        <div class="uk-width-medium-1-3 uk-text-center">
-          <p><span class="gray">Арендовали:</span> <span>9</span></p>
-          <p><span class="gray">Заработано:</span> <span>9 000тг</span></p>
-        </div>
-        <div class="uk-width-medium-1-3 uk-text-center">
-          <p><a href="#/">Календарь аренды</a></p>
-          <p><a href="#/">Поделиться в соцсетях</a></p>
-          <p><a href="#/">Снять с публикации</a></p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <h2>Деактивированные:</h2>
-  <div class="uk-grid ads">
-    <div class="uk-width-medium-3-10">
-      <div class="img" style="background-image: url('img/item_powerbank.jpg')"></div>
-    </div>
-    <div class="uk-width-medium-7-10">
-      <h2><a href="#/">Зарядка PowerBank</a></h2>
-      <div class="uk-grid-divider uk-margin-top-remove"></div>
-      <div class="uk-grid">
-        <div class="uk-width-medium-1-3">
-          <p class="uk-text-large">1 200₸<span class="gray">/день</span></p>
-          <div class="btn">Редактировать</div>
-        </div>
-        <div class="uk-width-medium-1-3 uk-text-center">
-          <p><span class="gray">Арендовали:</span> <span>1</span></p>
-          <p><span class="gray">Заработано:</span> <span>1 200</span></p>
-        </div>
-        <div class="uk-width-medium-1-3 uk-text-center">
-          <p><a href="#/">Календарь аренды</a></p>
-          <p><a href="#/">Поделиться в соцсетях</a></p>
-          <p><a href="#/">Снять с публикации</a></p>
+        <div class="uk-width-medium-7-10">
+          <h2><a href="#/">{{product.title}}</a></h2>
+          <div class="uk-grid-divider uk-margin-top-remove"></div>
+          <div class="uk-grid">
+            <div class="uk-width-medium-1-3">
+              <p class="uk-text-large">{{product.price}}₸<span class="gray">/день</span></p>
+              <div class="btn">Редактировать</div>
+            </div>
+            <div class="uk-width-medium-1-3 uk-text-center">
+              <p><span class="gray">Арендовали:</span> <span>9</span></p>
+              <p><span class="gray">Заработано:</span> <span>9 000тг</span></p>
+            </div>
+            <div class="uk-width-medium-1-3 uk-text-center">
+              <p><a href="#/">Календарь аренды</a></p>
+              <p><a href="#/">Поделиться в соцсетях</a></p>
+              <p><a href="#/">Снять с публикации</a></p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+    <h2>Деактивированные:</h2>
+    <div class="uk-grid ads">
+      <div class="uk-width-medium-3-10">
+        <div class="img" style="background-image: url('img/item_powerbank.jpg')"></div>
+      </div>
+      <div class="uk-width-medium-7-10">
+        <h2><a href="#/">Зарядка PowerBank</a></h2>
+        <div class="uk-grid-divider uk-margin-top-remove"></div>
+        <div class="uk-grid">
+          <div class="uk-width-medium-1-3">
+            <p class="uk-text-large">1 200₸<span class="gray">/день</span></p>
+            <div class="btn">Редактировать</div>
+          </div>
+          <div class="uk-width-medium-1-3 uk-text-center">
+            <p><span class="gray">Арендовали:</span> <span>1</span></p>
+            <p><span class="gray">Заработано:</span> <span>1 200</span></p>
+          </div>
+          <div class="uk-width-medium-1-3 uk-text-center">
+            <p><a href="#/">Календарь аренды</a></p>
+            <p><a href="#/">Поделиться в соцсетях</a></p>
+            <p><a href="#/">Снять с публикации</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
   </div>
-  <br>
+
   <a [routerLink]="['/add-item']" class="uk-text-large bottom-side">
     <div class="plus-sign"></div>
     <div>Добавить свою вещь</div>
@@ -203,101 +140,10 @@
         <li><a href="">Карта сайта</a></li>
       </ul>
       <ul class="uk-width-medium-1-4 uk-width-small-1-2">
-        <li><a href="">Политика использования</a></li>
+        <li><a href="">Политика использования</a></li >
         <li><a href="">Пользовательское соглашение</a></li>
       </ul>
     </div>
     <p class="copyright-note">&copy; Rent24.kz 2017 // Все права защищены<p>
   </div>
 </footer>
-
-
-<!--BEGIN login modal window-->
-<div id="login-modal" class="uk-modal">
-  <div class="uk-modal-dialog">
-    <a class="uk-modal-close uk-close"></a>
-    <div class="uk-modal-header">
-      <h2>Личный кабинет</h2>
-    </div>
-    <form action="" class="uk-form uk-form-stacked">
-      <div class="uk-form-row">
-        <div class="uk-form-controls">
-          <input type="email" placeholder="Электронная почта" class="uk-width-1-1">
-        </div>
-      </div>
-      <div class="uk-form-row">
-        <div class="uk-form-controls">
-          <input type="password" placeholder="Пароль" class="uk-width-1-1">
-        </div>
-      </div>
-      <div class="uk-form-row flex-row">
-        <input class="btn" type="submit" value="Войти">
-        <div><a href=" ">Забыли пароль?</a></div>
-      </div>
-    </form>
-    <div class="uk-modal-footer">
-      <p>Ещё не зарегистрированы?</p>
-      <div class="flex-row">
-        <button class="btn">Регистрация</button>
-        <div class="uk-text-center"><span>Это быстро и бесплатно</span></div>
-      </div>
-    </div>
-  </div>
-</div>
-<!--BEGIN login modal window-->
-
-<!--BEGIN sign-up modal window-->
-<div id="sign-up-modal" class="uk-modal">
-  <div class="uk-modal-dialog">
-    <a class="uk-modal-close uk-close"></a>
-    <div class="uk-modal-header">
-      <h2>Регистрация</h2>
-    </div>
-    <form action="" class="uk-form uk-form-stacked">
-      <div class="uk-form-row">
-        <div class="uk-form-controls">
-          <input type="email" placeholder="Электронная почта" class="uk-width-1-1">
-        </div>
-      </div>
-      <div class="uk-form-row">
-        <div class="uk-form-controls">
-          <input type="password" placeholder="Пароль" class="uk-width-1-1">
-        </div>
-      </div>
-      <div class="uk-form-row">
-        <div class="uk-form-controls">
-          <input type="password" placeholder="Подтверждение пароля" class="uk-width-1-1">
-        </div>
-      </div>
-      <div class="uk-form-row">
-        <div class="uk-form-controls">
-          <input type="tel" placeholder="Мобильный телефон" class="uk-width-1-1">
-        </div>
-      </div>
-      <p class="gray">
-        <small>Пожалуйста, укажите свой номер в формате +77011234567. <br>
-          После нажатия кнопки "Зарегистрироваться" на указанный вами номер будет отправлено SMS-сообщение с кодом
-          подтверждения.
-        </small> <br>
-        <small>На указанный номер было отправлено  SMS-сообщение с кодом подтверждения. Если сообщение не пришло, вы сможете
-          <a href="">отправить SMS ещё раз</a> через 30 секунд
-        </small>
-      </p>
-      <div class="uk-form-row flex-row">
-        <input class="btn" type="submit" value="Зарегистрироваться">
-      </div>
-    </form>
-    <div class="uk-modal-footer">
-      <p>Введите проверочный код из SMS</p>
-      <form action="" class="uk-form uk-form-stacked">
-        <div class="uk-form-row">
-          <div class="uk-form-controls">
-            <input type="text" placeholder="Проверочный код" class="uk-width-1-1">
-          </div>
-        </div>
-
-      </form>
-    </div>
-  </div>
-</div>
-<!--BEGIN sign-up modal indow-->

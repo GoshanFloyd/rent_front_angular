@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { UserService } from '../../services/user.service';
-import { ProductService } from '../../services/product.service';
-import {Router} from '@angular/router';
 
 declare const $: any;
 declare const UIkit: any;
 
 @Component({
   moduleId: module.id,
-  selector: 'app-main',
-  templateUrl: './main.component.html'
+  selector: 'app-header',
+  templateUrl: './header.component.html'
 })
 
-export class MainComponent implements OnInit {
+export class HeaderComponent implements OnInit {
+
+  @Output() onLogin = new EventEmitter<boolean>()
 
   public formRegisterUser = new FormGroup({
     username: new FormControl(),
@@ -22,27 +22,24 @@ export class MainComponent implements OnInit {
     phone: new FormControl()
   })
 
-  public formSearchProduct = new FormGroup({
-    searchString: new FormControl()
-  });
-
   private token: string;
   public userinfo: string;
   public backendHost: string = 'http://beru.rent/';
 
   public loginState: boolean = false;
   public products: Array<any> = [];
-  public categories: Array<any> = [];
 
-  constructor(private _userService: UserService,
-              private _productService: ProductService,
-              private router: Router) {
+  public formLoginUser = new FormGroup({
+    username: new FormControl(),
+    password: new FormControl()
+  })
+
+  constructor(private _userService: UserService) {
 
   }
 
   ngOnInit() {
     this.getToken()
-    this.getProducts();
   }
 
   public getUserInfo(){
@@ -51,7 +48,7 @@ export class MainComponent implements OnInit {
       data => {
         this.loginState = true;
         this.userinfo = data.json();
-        this.getCategories(this.token);
+        this.onLogin.emit(this.loginState);
       },
       err => console.log(err)
     )
@@ -61,10 +58,7 @@ export class MainComponent implements OnInit {
 
     this.token = localStorage.getItem('auth_token_rent');
 
-    if(this.token){
-      this.getUserInfo();
-    }
-
+    this.getUserInfo();
   }
 
 
@@ -100,56 +94,36 @@ export class MainComponent implements OnInit {
     )
   }
 
-  public getProducts(){
-    this._productService.getAllProducts().subscribe(
-      data => {
-          this.products = data.json();
 
-          for(let item of this.products){
-            this._userService.getUserInfoById(this.token,item.author).subscribe(
-              data => {
-                item.author_info = data.json()
-              },
-              err => console.log(err)
-            )
-          }
-        },
-      err => console.log(err)
-    )
-  }
-
-  public getSingleItem(event: Event, product: any){
-    event.preventDefault();
-
-    localStorage.setItem('rent_product_id', product._id);
-    this.router.navigate(['/single-item'])
-  }
-
-  public onLoginAction(login: boolean){
-
-    this.loginState = login;
-  }
-
-  public searchProducts(){
-    if(this.formSearchProduct.get('searchString').value.length > 0){
-      this._productService.searchProductByName(this.token, this.formSearchProduct.get('searchString').value).subscribe(
-        data => {
-          this.products = data.json()
-        },
-        err => console.log(err)
-      )
+  public authUser(){
+    let data = {
+      username: this.formLoginUser.get('username').value,
+      password: this.formLoginUser.get('password').value
     }
-    else{
-      this.getProducts();
-    }
-  }
 
-  public getCategories(token: string){
-    this._productService.getDistinctCategory(this.token).subscribe(
+    this._userService.authUser(data).subscribe(
       data => {
-        this.categories = data.json();
+        if(data.json().token){
+          localStorage.setItem('auth_token_rent', data.json().token)
+          this.token = data.json().token;
+          this.loginState = true;
+          this.onLogin.emit(this.loginState);
+
+          const modal = UIkit.modal('#login-modal');
+          modal.hide();
+        }
       },
       err => console.log(err)
     )
   }
+
+  public logOut(event: Event){
+    event.preventDefault();
+
+    this.loginState = false;
+    localStorage.removeItem('auth_token_rent');
+
+    this.onLogin.emit(this.loginState);
+  }
+
 }

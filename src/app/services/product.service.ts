@@ -6,18 +6,22 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class ProductService {
 
-  private host:string = "http://localhost:8200/api/product/";
+  private host:string = "http://beru.rent/api/product";
 
   constructor(private http: Http) {
   }
 
-  getAllProducts(token: any) {
+  getAllProducts() {
+    return this.http.get(this.host+'/all');
+  }
+
+  getMyProducts(token: string){
 
     let headers = new Headers();
 
-    headers.append('TOKEN', token)
+    headers.append('TOKEN', token);
 
-    return this.http.get(this.host+'/all', {headers: headers});
+    return this.http.get(this.host,{headers:headers});
   }
 
   addProduct(token: string, data: any){
@@ -27,5 +31,29 @@ export class ProductService {
     headers.append('TOKEN', token);
 
     return this.http.post(this.host, data, {headers:headers});
+  }
+
+  getSingleProduct(token: string, id: string){
+    let headers = new Headers();
+
+    headers.append('TOKEN', token);
+
+    return this.http.get(this.host+'/'+id, {headers:headers});
+  }
+
+  searchProductByName(token: string, str: string){
+    let headers = new Headers();
+
+    headers.append('TOKEN', token);
+
+    return this.http.get(this.host+'/find/'+str, {headers:headers});
+  }
+
+  getDistinctCategory(token: string){
+    let headers = new Headers();
+
+    headers.append('TOKEN', token);
+
+    return this.http.get(this.host+'/category/', {headers:headers});
   }
 }
