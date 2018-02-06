@@ -39,7 +39,7 @@
       <!--END photo slider-->
 
       <div class="seller-info">
-        <img class="avatar" src="img/avatar_stalker.jpg" alt="Аватар">
+        <img *ngIf="author" class="avatar" [attr.src]="author.avatar_image ? backendHost+author.avatar_image : '../../../assets/img/avatar_stalker.jpg'" alt="Аватар">
         <div>
           <span class="seller-name" *ngIf="author">{{author.nickname}}</span>
           <div>
